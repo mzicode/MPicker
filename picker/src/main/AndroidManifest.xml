@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false" />
+
+    <application
+        android:supportsRtl="true">
+        <activity
+            android:name="io.github.yourname.mzomnipicker.ui.MediaPickerActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity
+            android:name="io.github.yourname.mzomnipicker.ui.MediaPreviewActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:theme="@style/Theme.MzOmniPicker.Preview" />
+
+        <activity
+            android:name="io.github.yourname.mzomnipicker.ui.CropImageActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <activity
+            android:name="io.github.yourname.mzomnipicker.ui.CameraCaptureActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MzOmniPicker.Camera" />
+
+        <provider
+            android:name=".api.PickerProvider"
+            android:authorities="${applicationId}.mzomnipicker.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/picker_file_paths" />
+        </provider>
+    </application>
+
+</manifest>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.MzOmniPicker.Preview" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowContentTransitions">false</item>
+        <item name="android:windowAnimationStyle">@style/PickerAnimationNone</item>
+    </style>
+
+    <style name="PickerAnimationNone">
+        <item name="android:activityOpenEnterAnimation">@anim/picker_no_anim</item>
+        <item name="android:activityOpenExitAnimation">@anim/picker_no_anim</item>
+        <item name="android:activityCloseEnterAnimation">@anim/picker_no_anim</item>
+        <item name="android:activityCloseExitAnimation">@anim/picker_no_anim</item>
+    </style>
+
+    <style name="Theme.MzOmniPicker.Camera" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="PickerTextDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:windowAnimationStyle">@style/PickerTextDialogAnimation</item>
+    </style>
+
+    <style name="PickerTextDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/picker_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/picker_dialog_exit</item>
+    </style>
+</resources>
