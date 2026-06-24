@@ -15,19 +15,19 @@
  *   ./gradlew :mzomnipicker:publishToMavenLocal -PVERSION_NAME=$VERSION
  *
  * 使用方坐标（多模块仓库注意点号）：
- *   io.github.yourname:mzomnipicker:<TAG>
+ *   io.github.mzicode:mzomnipicker:<TAG>
  */
 
 apply plugin: 'maven-publish'
 
 ext {
-    publishGroupId    = 'io.github.yourname'
+    publishGroupId    = 'io.github.mzicode'
     publishArtifactId = 'mzomnipicker'
     publishVersion    = project.findProperty('VERSION_NAME') ?: '0.1.0-LOCAL'
 
-    publishUrl        = 'https://github.com/yourname/MzOmniPicker'
-    publishDeveloperId   = 'yourname'
-    publishDeveloperName = 'yourname'
+    publishUrl        = 'https://github.com/mzicode/MzOmniPicker'
+    publishDeveloperId   = 'mz'
+    publishDeveloperName = 'mz'
 }
 
 android {

@@ -18,7 +18,7 @@
         android:background="@drawable/picker_bg_thumb_frame"
         android:clipToOutline="true">
 
-        <io.github.yourname.mzomnipicker.ui.RoundedImageView
+        <io.github.mz.mzomnipicker.ui.RoundedImageView
             android:id="@+id/item_thumb"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

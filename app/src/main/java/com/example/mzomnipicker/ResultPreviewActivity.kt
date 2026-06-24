@@ -3,16 +3,18 @@ package com.example.mzomnipicker
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.MediaController
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import io.github.yourname.mzomnipicker.model.MediaEntity
+import io.github.mz.mzomnipicker.model.MediaEntity
 import java.io.File
 
 class ResultPreviewActivity : AppCompatActivity() {
@@ -24,9 +26,8 @@ class ResultPreviewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        @Suppress("DEPRECATION")
-        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_result_preview)
+        applySystemBarInsets()
 
         pager = findViewById(R.id.result_preview_pager)
         video = findViewById(R.id.result_preview_video)
@@ -44,6 +45,24 @@ class ResultPreviewActivity : AppCompatActivity() {
             showVideo(start)
         } else {
             showImages(items.filter { it.isImage }, start)
+        }
+    }
+
+    private fun applySystemBarInsets() {
+        val root = findViewById<View>(R.id.result_preview_root)
+        val startPaddingLeft = root.paddingLeft
+        val startPaddingTop = root.paddingTop
+        val startPaddingRight = root.paddingRight
+        val startPaddingBottom = root.paddingBottom
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(
+                left = startPaddingLeft + bars.left,
+                top = startPaddingTop + bars.top,
+                right = startPaddingRight + bars.right,
+                bottom = startPaddingBottom + bars.bottom,
+            )
+            insets
         }
     }
 

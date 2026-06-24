@@ -25,10 +25,10 @@ import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
 import com.github.barteksc.pdfviewer.PDFView
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
-import io.github.yourname.mzomnipicker.api.MzOmniPicker
-import io.github.yourname.mzomnipicker.loader.IImageEngine
-import io.github.yourname.mzomnipicker.model.MediaEntity
-import io.github.yourname.mzomnipicker.preview.IOtherPreviewProvider
+import io.github.mz.mzomnipicker.api.MzOmniPicker
+import io.github.mz.mzomnipicker.loader.IImageEngine
+import io.github.mz.mzomnipicker.model.MediaEntity
+import io.github.mz.mzomnipicker.preview.IOtherPreviewProvider
 import java.io.File
 import java.util.Locale
 

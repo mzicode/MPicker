@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.github.yourname.mzomnipicker.ui.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<io.github.mz.mzomnipicker.ui.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
@@ -7,7 +7,7 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:padding="1dp">
 
-    <io.github.yourname.mzomnipicker.ui.RoundedImageView
+    <io.github.mz.mzomnipicker.ui.RoundedImageView
         android:id="@+id/item_thumb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -67,4 +67,4 @@
             android:textSize="13sp"
             android:textStyle="bold" />
     </FrameLayout>
-</io.github.yourname.mzomnipicker.ui.SquareFrameLayout>
+</io.github.mz.mzomnipicker.ui.SquareFrameLayout>

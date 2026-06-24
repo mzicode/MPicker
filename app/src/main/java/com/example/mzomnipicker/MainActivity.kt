@@ -16,19 +16,24 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import io.github.yourname.mzomnipicker.api.CameraRecordTrigger
-import io.github.yourname.mzomnipicker.api.CropOutputFormat
-import io.github.yourname.mzomnipicker.api.ImageProcessStore
-import io.github.yourname.mzomnipicker.api.MzOmniPicker
-import io.github.yourname.mzomnipicker.model.MediaEntity
-import io.github.yourname.mzomnipicker.model.MediaFilter
-import io.github.yourname.mzomnipicker.model.MediaType
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
+import io.github.mz.mzomnipicker.api.CameraRecordTrigger
+import io.github.mz.mzomnipicker.api.CropOutputFormat
+import io.github.mz.mzomnipicker.api.ImageProcessStore
+import io.github.mz.mzomnipicker.api.MzOmniPicker
+import io.github.mz.mzomnipicker.api.PickerTheme
+import io.github.mz.mzomnipicker.model.MediaEntity
+import io.github.mz.mzomnipicker.model.MediaFilter
+import io.github.mz.mzomnipicker.model.MediaType
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
     private lateinit var result: TextView
     private lateinit var preview: ImageView
     private lateinit var lastPickedHint: TextView
+    private lateinit var themeHint: TextView
 
     private var lastPicked: List<MediaEntity> = emptyList()
     private var lastPreviewIndex: Int = 0
@@ -49,11 +54,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        applySystemBarInsets()
         result = findViewById(R.id.demo_result)
         preview = findViewById(R.id.demo_preview)
         lastPickedHint = findViewById(R.id.demo_last_picked_hint)
+        themeHint = findViewById(R.id.demo_theme_hint)
         preview.setOnClickListener { openFullScreenPreview() }
         PdfDemo.installPreviewProvider()
+        bindThemeButtons()
 
         findViewById<Button>(R.id.btn_pick_image).setOnClickListener {
             MzOmniPicker.with(this)
@@ -351,6 +359,47 @@ class MainActivity : AppCompatActivity() {
                 .spanCount(4)
                 .preSelected(lastPicked)
                 .start { render(it) }
+        }
+    }
+
+    private fun bindThemeButtons() {
+        applyPickerTheme("GREEN", PickerTheme.GREEN)
+        findViewById<Button>(R.id.btn_theme_green).setOnClickListener {
+            applyPickerTheme("GREEN", PickerTheme.GREEN)
+        }
+        findViewById<Button>(R.id.btn_theme_wechat).setOnClickListener {
+            applyPickerTheme("WECHAT_DARK", PickerTheme.WECHAT_DARK)
+        }
+        findViewById<Button>(R.id.btn_theme_sky).setOnClickListener {
+            applyPickerTheme("SKY", PickerTheme.SKY)
+        }
+        findViewById<Button>(R.id.btn_theme_amber).setOnClickListener {
+            applyPickerTheme("AMBER", PickerTheme.AMBER)
+        }
+    }
+
+    private fun applyPickerTheme(name: String, theme: PickerTheme) {
+        MzOmniPicker.setTheme(theme)
+        themeHint.text = "当前主题: $name，打开相册/裁剪/内置编辑即可查看效果"
+        themeHint.setBackgroundColor(theme.partialBarBackground)
+        themeHint.setTextColor(theme.bodyText)
+    }
+
+    private fun applySystemBarInsets() {
+        val root = findViewById<android.view.View>(R.id.demo_root)
+        val startPaddingLeft = root.paddingLeft
+        val startPaddingTop = root.paddingTop
+        val startPaddingRight = root.paddingRight
+        val startPaddingBottom = root.paddingBottom
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(
+                left = startPaddingLeft + bars.left,
+                top = startPaddingTop + bars.top,
+                right = startPaddingRight + bars.right,
+                bottom = startPaddingBottom + bars.bottom,
+            )
+            insets
         }
     }
 

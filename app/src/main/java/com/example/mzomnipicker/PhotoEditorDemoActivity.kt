@@ -8,8 +8,11 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import io.github.yourname.mzomnipicker.api.ImageProcessStore
-import io.github.yourname.mzomnipicker.model.MediaEntity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
+import io.github.mz.mzomnipicker.api.ImageProcessStore
+import io.github.mz.mzomnipicker.model.MediaEntity
 import ja.burhanrashid52.photoeditor.PhotoEditor
 import ja.burhanrashid52.photoeditor.PhotoEditorView
 import ja.burhanrashid52.photoeditor.SaveSettings
@@ -32,6 +35,7 @@ class PhotoEditorDemoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_editor_demo)
+        applySystemBarInsets()
 
         requestId = intent.getStringExtra(ImageProcessStore.EXTRA_REQUEST_ID).orEmpty()
         items = ImageProcessStore.items(requestId).filter { it.isImage }
@@ -50,6 +54,24 @@ class PhotoEditorDemoActivity : AppCompatActivity() {
 
         bindActions()
         loadImage(0)
+    }
+
+    private fun applySystemBarInsets() {
+        val root = findViewById<android.view.View>(R.id.photo_editor_root)
+        val startPaddingLeft = root.paddingLeft
+        val startPaddingTop = root.paddingTop
+        val startPaddingRight = root.paddingRight
+        val startPaddingBottom = root.paddingBottom
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(
+                left = startPaddingLeft + bars.left,
+                top = startPaddingTop + bars.top,
+                right = startPaddingRight + bars.right,
+                bottom = startPaddingBottom + bars.bottom,
+            )
+            insets
+        }
     }
 
     private fun bindActions() {

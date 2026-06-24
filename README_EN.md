@@ -67,7 +67,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    implementation 'io.github.yourname:mzomnipicker:0.1.6'
+    implementation 'io.github.mzicode:mzomnipicker:1.0.0'
 }
 ```
 
@@ -75,7 +75,7 @@ Kotlin DSL:
 
 ```kotlin
 dependencies {
-    implementation("io.github.yourname:mzomnipicker:0.1.6")
+    implementation("io.github.mzicode:mzomnipicker:1.0.0")
 }
 ```
 
@@ -138,8 +138,8 @@ Choose by scenario:
 ### Select Images
 
 ```kotlin
-import io.github.yourname.mzomnipicker.api.MzOmniPicker
-import io.github.yourname.mzomnipicker.model.MediaType
+import io.github.mz.mzomnipicker.api.MzOmniPicker
+import io.github.mz.mzomnipicker.model.MediaType
 
 MzOmniPicker.with(this)
     .type(MediaType.IMAGE)
@@ -165,7 +165,7 @@ MzOmniPicker.with(this)
 ### Crop Image
 
 ```kotlin
-import io.github.yourname.mzomnipicker.api.CropOutputFormat
+import io.github.mz.mzomnipicker.api.CropOutputFormat
 
 MzOmniPicker.with(this)
     .type(MediaType.IMAGE)
@@ -244,7 +244,7 @@ The standalone recording API `MzOmniPicker.takeVideo(activity, ...)` only return
 ### Timed Video Recording
 
 ```kotlin
-import io.github.yourname.mzomnipicker.api.CameraRecordTrigger
+import io.github.mz.mzomnipicker.api.CameraRecordTrigger
 
 MzOmniPicker.takeVideo(
     activity = this,
