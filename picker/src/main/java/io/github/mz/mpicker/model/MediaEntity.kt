@@ -4,6 +4,14 @@ import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
 
+/** 按 name 反序列化 MediaType；兼容旧 Parcel 或未知值时回退到 IMAGE。 */
+private fun readMediaTypeSafe(name: String): MediaType =
+    try {
+        MediaType.valueOf(name)
+    } catch (e: Exception) {
+        MediaType.IMAGE
+    }
+
 data class MediaEntity(
     val id: Long,
     val uri: Uri,
@@ -45,7 +53,7 @@ data class MediaEntity(
         parcel.readLong(),
         parcel.readInt(),
         parcel.readInt(),
-        MediaType.values()[parcel.readInt()],
+        readMediaTypeSafe(parcel.readString().orEmpty()),
         parcel.readLong(),
         if (parcel.dataAvail() > 0) parcel.readByte() != 0.toByte() else false,
     )
@@ -61,7 +69,7 @@ data class MediaEntity(
         dest.writeLong(dateAddedSec)
         dest.writeInt(width)
         dest.writeInt(height)
-        dest.writeInt(mediaType.ordinal)
+        dest.writeString(mediaType.name)
         dest.writeLong(albumId)
         dest.writeByte(if (mirrorHorizontal) 1 else 0)
     }

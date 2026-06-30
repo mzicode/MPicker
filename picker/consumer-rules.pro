@@ -26,8 +26,7 @@
 # ─── SAM fun interface：Java/Kotlin 互调时方法名要稳定 ──────────────────
 -keep interface io.github.mz.mpicker.api.OnPickResultListener { *; }
 -keep interface io.github.mz.mpicker.api.OnPhotoTakenListener { *; }
--keep class io.github.mz.mpicker.upload.MediaUploader$Cancellable { *; }
--keep class io.github.mz.mpicker.upload.MediaUploader { public *; }
+-keep interface io.github.mz.mpicker.api.OnVideoRecordedListener { *; }
 
 # ─── ZoomGestureHelper 被外部按 attach() 入口直接调用 ───────────────────
 -keep public class io.github.mz.mpicker.util.ZoomGestureHelper { public protected *; }

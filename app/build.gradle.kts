@@ -46,6 +46,7 @@ dependencies {
     implementation("io.github.oothp:android-pdf-viewer:3.2.0-beta06")
     implementation("com.burhanrashid52:photoeditor:3.1.0")
     implementation(project(":mpicker"))
+    implementation("com.squareup.okhttp3:okhttp:5.3.2")
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)

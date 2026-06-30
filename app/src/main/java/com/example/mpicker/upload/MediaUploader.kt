@@ -1,4 +1,4 @@
-package io.github.mz.mpicker.upload
+package com.example.mpicker.upload
 
 import android.content.Context
 import android.net.Uri
@@ -145,34 +145,34 @@ object MediaUploader {
         listener: BatchListener,
         onMainThread: Boolean = true,
     ): Cancellable {
-        val total = entities.size
-        val results = arrayOfNulls<String>(total)
+        val totalCount = entities.size
+        val results = arrayOfNulls<String>(totalCount)
         val done = AtomicInteger()
         val tasks = mutableListOf<Cancellable>()
 
-        if (total == 0) {
+        if (totalCount == 0) {
             dispatch(onMainThread) { listener.onAllDone(results) }
             return Cancellable { }
         }
 
-        entities.forEachIndexed { i, e ->
+        entities.forEachIndexed { i, item ->
             val task = upload(
-                context = context, url = url, entity = e,
+                context = context, url = url, entity = item,
                 fieldName = fieldName, headers = headers, formData = formData,
                 listener = object : Listener {
-                    override fun onProgress(uploaded: Long, t: Long) {
-                        listener.onItemProgress(i, uploaded, t)
+                    override fun onProgress(uploaded: Long, total: Long) {
+                        listener.onItemProgress(i, uploaded, total)
                     }
 
                     override fun onSuccess(responseBody: String, code: Int) {
                         results[i] = responseBody
                         listener.onItemSuccess(i, responseBody)
-                        if (done.incrementAndGet() == total) listener.onAllDone(results)
+                        if (done.incrementAndGet() == totalCount) listener.onAllDone(results)
                     }
 
-                    override fun onError(err: Throwable) {
-                        listener.onItemError(i, err)
-                        if (done.incrementAndGet() == total) listener.onAllDone(results)
+                    override fun onError(e: Throwable) {
+                        listener.onItemError(i, e)
+                        if (done.incrementAndGet() == totalCount) listener.onAllDone(results)
                     }
                 },
                 onMainThread = onMainThread,

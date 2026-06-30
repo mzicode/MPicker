@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import com.example.mpicker.upload.MediaUploader
 import io.github.mz.mpicker.api.CameraRecordTrigger
 import io.github.mz.mpicker.api.CropOutputFormat
 import io.github.mz.mpicker.api.ImageProcessStore
@@ -28,6 +29,9 @@ import io.github.mz.mpicker.model.MediaEntity
 import io.github.mz.mpicker.model.MediaFilter
 import io.github.mz.mpicker.model.MediaType
 import java.io.File
+
+/** 上传演示用公开 echo 端点；接入方按需替换为自己的服务地址。 */
+private const val UPLOAD_URL = "https://postman-echo.com/post"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var result: TextView
@@ -359,6 +363,36 @@ class MainActivity : AppCompatActivity() {
                 .spanCount(4)
                 .preSelected(lastPicked)
                 .start { render(it) }
+        }
+
+        findViewById<Button>(R.id.btn_upload).setOnClickListener {
+            val first = lastPicked.firstOrNull()
+            if (first == null) {
+                Toast.makeText(this, "请先选一次图片", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            MediaUploader.upload(
+                context = this,
+                url = UPLOAD_URL,
+                entity = first,
+                listener = object : MediaUploader.Listener {
+                    override fun onStart() {
+                        result.text = "上传开始…"
+                    }
+
+                    override fun onProgress(uploaded: Long, total: Long) {
+                        result.text = "上传中 $uploaded / $total bytes"
+                    }
+
+                    override fun onSuccess(responseBody: String, code: Int) {
+                        result.text = "上传成功 HTTP $code\n${responseBody.take(500)}"
+                    }
+
+                    override fun onError(e: Throwable) {
+                        result.text = "上传失败: ${e.message}"
+                    }
+                },
+            )
         }
     }
 
