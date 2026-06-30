@@ -2,7 +2,7 @@
 
 [中文](README.md)
 
-MPicker is an Android image, video, audio, and file picker. It supports multi-select, preview, photo capture, video recording, crop, image editing, image compression, video compression, and third-party processing extensions.
+MPicker is an Android image, video, audio, and file picker. It supports Android 5.0 (API 21) through Android 16 (API 36), and covers multi-select, preview, photo capture, video recording, crop, image editing, image compression, video compression, Android Photo Picker, SAF, and third-party processing extensions.
 
 ## Features
 
@@ -16,6 +16,7 @@ MPicker is an Android image, video, audio, and file picker. It supports multi-se
 - Image editing: multi-image editing, crop, brush, text, mosaic, color, and brush size.
 - Image compression and video compression with progress callbacks.
 - Android Photo Picker and SAF document picker.
+- Android 5.0+ support with compatibility for scoped storage, Android 13/14 media permissions, Android Photo Picker, and SAF.
 - Custom image loading engine.
 - Custom preview for other file types.
 - Third-party image crop/edit framework integration.
@@ -81,8 +82,10 @@ dependencies {
 
 ## Requirements
 
-- minSdk 21+
-- compileSdk 36+
+- Android 5.0+ (API 21+), compiled against Android 16 (API 36)
+- Scoped Storage compatibility for Android 10+
+- Android 13+ media permissions and Android 14+ partial photo/video access
+- Android Photo Picker and SAF document picker
 - AndroidX
 - Java 11
 

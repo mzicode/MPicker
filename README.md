@@ -2,13 +2,15 @@
 
 [English](README_EN.md) | [GitHub](https://github.com/mzicode/MPicker)
 
-MPicker 是一个面向现代 Android 的媒体选择与处理库。它把图片、视频、音频、任意文件选择、系统 Photo Picker、SAF 文件选择器、拍照、录像、裁切、编辑、压缩和预览扩展整合到同一套链式 API 中，适合需要长期兼容不同 Android 版本和不同厂商 ROM 的项目。
+MPicker 是一个面向现代 Android 的媒体选择与处理库。它把图片、视频、音频、任意文件选择、系统 Photo Picker、SAF 文件选择器、拍照、录像、裁切、编辑、压缩和预览扩展整合到同一套链式 API 中，重点解决 Android 多版本媒体权限、分区存储、系统选择器和厂商 ROM 差异带来的长期兼容问题。
 
 > 核心入口：`MPicker.with(activity)` / `MPicker.with(fragment)`
+> 系统范围：支持 Android 5.0（API 21）到 Android 16（API 36），兼容 Android 10 分区存储、Android 13/14 媒体权限模型、系统 Photo Picker 和 SAF。
 
 ## 目录
 
 - [特性](#特性)
+- [关于 MPicker](#关于-mpicker)
 - [适配范围](#适配范围)
 - [安装](#安装)
 - [权限配置](#权限配置)
@@ -23,6 +25,10 @@ MPicker 是一个面向现代 Android 的媒体选择与处理库。它把图片
 - [混淆配置](#混淆配置)
 - [FAQ](#faq)
 - [License](#license)
+
+## 关于 MPicker
+
+MPicker 是一个现代 Android 媒体与文件选择器，支持 Android 5.0（API 21）到 Android 16（API 36），内置图片、视频、音频、任意文件选择、系统 Photo Picker、SAF、拍照、录像、裁切、编辑、压缩和预览能力，适合需要长期适配不同 Android 系统版本与厂商 ROM 的项目。
 
 ## 特性
 
@@ -41,11 +47,11 @@ MPicker 是一个面向现代 Android 的媒体选择与处理库。它把图片
 
 ## 适配范围
 
-- minSdk 21+
-- compileSdk 36+
-- AndroidX
-- Java 11
-- Kotlin API 兼容 Kotlin 1.8
+- **系统版本**：支持 Android 5.0+（API 21+），按 Android 16（API 36）编译验证。
+- **存储模型**：兼容 Android 10+ 分区存储（Scoped Storage），优先使用 `content://` Uri，降低真实路径依赖。
+- **权限模型**：适配 Android 13+ 的 `READ_MEDIA_IMAGES`、`READ_MEDIA_VIDEO`、`READ_MEDIA_AUDIO`，以及 Android 14+ 的部分照片/视频访问权限。
+- **系统选择器**：支持 Android Photo Picker 和 SAF 文件选择器，适合降低权限依赖并满足 Google Play 合规要求。
+- **工程要求**：AndroidX、Java 11，Kotlin API 兼容 Kotlin 1.8。
 
 `compileSdk` 只影响库的编译环境，接入方不需要因为使用本库而同步提高 `targetSdk`。如果应用已适配 Android 13/14 权限模型，建议优先使用系统 Photo Picker 或按媒体类型声明权限。
 
