@@ -128,12 +128,6 @@ dependencies {
 }
 ```
 
-### 3. 导入入口
-
-```kotlin
-import io.github.mz.mpicker.api.MPicker
-import io.github.mz.mpicker.model.MediaType
-```
 
 ## 权限配置
 
