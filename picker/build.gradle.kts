@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "io.github.mz.mzomnipicker"
+    namespace = "io.github.mz.mpicker"
     compileSdk = 36
 
     defaultConfig {

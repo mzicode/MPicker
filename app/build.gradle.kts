@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.mzomnipicker"
+    namespace = "com.example.mpicker"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.mzomnipicker"
+        applicationId = "com.example.mpicker"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -45,7 +45,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:5.0.7")
     implementation("io.github.oothp:android-pdf-viewer:3.2.0-beta06")
     implementation("com.burhanrashid52:photoeditor:3.1.0")
-    implementation(project(":mzomnipicker"))
+    implementation(project(":mpicker"))
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)

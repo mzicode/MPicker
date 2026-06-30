@@ -10,33 +10,33 @@
     <application
         android:supportsRtl="true">
         <activity
-            android:name="io.github.mz.mzomnipicker.ui.MediaPickerActivity"
+            android:name="io.github.mz.mpicker.ui.MediaPickerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
-            android:name="io.github.mz.mzomnipicker.ui.MediaPreviewActivity"
+            android:name="io.github.mz.mpicker.ui.MediaPreviewActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false"
-            android:theme="@style/Theme.MzOmniPicker.Preview" />
+            android:theme="@style/Theme.MPicker.Preview" />
 
         <activity
-            android:name="io.github.mz.mzomnipicker.ui.CropImageActivity"
+            android:name="io.github.mz.mpicker.ui.CropImageActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <activity
-            android:name="io.github.mz.mzomnipicker.ui.CameraCaptureActivity"
+            android:name="io.github.mz.mpicker.ui.CameraCaptureActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.MzOmniPicker.Camera" />
+            android:theme="@style/Theme.MPicker.Camera" />
 
         <provider
             android:name=".api.PickerProvider"
-            android:authorities="${applicationId}.mzomnipicker.fileprovider"
+            android:authorities="${applicationId}.mpicker.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

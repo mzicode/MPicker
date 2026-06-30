@@ -1,0 +1,95 @@
+package io.github.mz.mpicker.api
+
+import io.github.mz.mpicker.model.MediaFilter
+import io.github.mz.mpicker.model.MediaEntity
+import io.github.mz.mpicker.model.MediaType
+
+class SelectionConfig {
+    var filter: MediaFilter = MediaFilter.Builder(MediaType.IMAGE).build()
+    var maxCount: Int = 9
+    var gridSpanCount: Int = 4
+    var startInGrid: Boolean = true
+    var enableMultiSelect: Boolean = true
+
+    /**
+     * 使用系统 Photo Picker（API 33+ 推荐，零权限）。
+     * 仅对 IMAGE/VIDEO/ALL 生效；AUDIO 仍走本框架。
+     * Play 上架强烈推荐：不申请存储权限可规避 Play 政策审查。
+     */
+    var useSystemPhotoPicker: Boolean = false
+    var useSystemFilePicker: Boolean = false
+
+    /** 是否在列表首位显示"相机入口"item（仅 grid 模式生效；AUDIO 类型强制忽略） */
+    var showCameraEntry: Boolean = false
+
+    /**
+     * 预选列表：picker 打开时自动复选这些项。
+     * 只需 entity.id + mediaType 一致即可识别（其它字段不必精确匹配）。
+     * 数量应不超过 [maxCount]。
+     */
+    var preSelected: List<MediaEntity> = emptyList()
+
+    /**
+     * 首次加载是否显示 loading 弹窗。
+     * 默认 false：本地 MediaStore 通常 < 100ms 就返回，弹窗会一闪而过反而扰人；
+     * 仅当列表项数量极大或自定义查询慢时打开。
+     */
+    var showFirstLoading: Boolean = false
+
+    /**
+     * 压缩 loading 显示期间，按返回键/点击取消是否取消后台压缩并退出 picker。
+     * 默认 false：压缩期间会拦截返回，避免用户中断压缩。
+     * 设为 true 时，按返回键/点击取消会取消压缩并退出 picker。
+     */
+    var cancelCompressOnBack: Boolean = false
+
+    /** 图片裁剪配置；开启后仅单张图片选择会进入裁剪页。 */
+    var cropConfig: CropConfig = CropConfig()
+    var cameraCaptureMode: CameraCaptureMode = CameraCaptureMode.PHOTO
+    var cameraRecordDurationMs: Long = 0L
+    var cameraRecordCountDown: Boolean = false
+    var cameraRecordTrigger: CameraRecordTrigger = CameraRecordTrigger.CLICK
+    var imageEditEnabled: Boolean = false
+    var imageCropProcessor: IImageProcessProcessor? = null
+    var imageEditProcessor: IImageProcessProcessor? = null
+    var theme: PickerTheme? = null
+
+    internal val needsImageProcessing: Boolean
+        get() = cropConfig.enabled || imageEditEnabled
+}
+
+class CropConfig {
+    var enabled: Boolean = false
+    var aspectX: Int = 0
+    var aspectY: Int = 0
+    var outputFormat: CropOutputFormat = CropOutputFormat.JPEG
+    var outputQuality: Int = 90
+    var maxOutputWidth: Int = 2048
+    var maxOutputHeight: Int = 2048
+    var cropShape: CropShape = CropShape.RECTANGLE
+
+    val hasFixedAspectRatio: Boolean get() = aspectX > 0 && aspectY > 0
+    val isCircle: Boolean get() = cropShape == CropShape.OVAL
+}
+
+enum class CropOutputFormat { JPEG, PNG }
+
+enum class CropShape { RECTANGLE, OVAL }
+
+enum class CameraCaptureMode { PHOTO, VIDEO }
+
+enum class CameraRecordTrigger { CLICK, LONG_PRESS }
+
+fun interface OnPickResultListener {
+    fun onResult(result: List<MediaEntity>)
+}
+
+/** 拍照结果回调；失败 / 用户取消时 success=false, filePath/uri 为 null */
+fun interface OnPhotoTakenListener {
+    fun onResult(success: Boolean, filePath: String?, uri: android.net.Uri?)
+}
+
+/** 录视频结果回调；失败 / 用户取消时 success=false, filePath/uri 为 null */
+fun interface OnVideoRecordedListener {
+    fun onResult(success: Boolean, filePath: String?, uri: android.net.Uri?)
+}

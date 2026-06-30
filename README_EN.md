@@ -1,8 +1,8 @@
-# MzOmniPicker
+# MPicker
 
 [中文](README.md)
 
-MzOmniPicker is an Android image, video, audio, and file picker. It supports multi-select, preview, photo capture, video recording, crop, image editing, image compression, video compression, and third-party processing extensions.
+MPicker is an Android image, video, audio, and file picker. It supports multi-select, preview, photo capture, video recording, crop, image editing, image compression, video compression, and third-party processing extensions.
 
 ## Features
 
@@ -67,7 +67,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    implementation 'io.github.mzicode:mzomnipicker:1.0.0'
+    implementation 'io.github.mzicode:mpicker:1.0.0'
 }
 ```
 
@@ -75,7 +75,7 @@ Kotlin DSL:
 
 ```kotlin
 dependencies {
-    implementation("io.github.mzicode:mzomnipicker:1.0.0")
+    implementation("io.github.mzicode:mpicker:1.0.0")
 }
 ```
 
@@ -138,10 +138,10 @@ Choose by scenario:
 ### Select Images
 
 ```kotlin
-import io.github.mz.mzomnipicker.api.MzOmniPicker
-import io.github.mz.mzomnipicker.model.MediaType
+import io.github.mz.mpicker.api.MPicker
+import io.github.mz.mpicker.model.MediaType
 
-MzOmniPicker.with(this)
+MPicker.with(this)
     .type(MediaType.IMAGE)
     .maxCount(9)
     .grid(true)
@@ -154,7 +154,7 @@ MzOmniPicker.with(this)
 ### Select Videos
 
 ```kotlin
-MzOmniPicker.with(this)
+MPicker.with(this)
     .type(MediaType.VIDEO)
     .maxCount(3)
     .grid(true)
@@ -165,9 +165,9 @@ MzOmniPicker.with(this)
 ### Crop Image
 
 ```kotlin
-import io.github.mz.mzomnipicker.api.CropOutputFormat
+import io.github.mz.mpicker.api.CropOutputFormat
 
-MzOmniPicker.with(this)
+MPicker.with(this)
     .type(MediaType.IMAGE)
     .crop()
     .cropAspectRatio(1, 1)
@@ -180,7 +180,7 @@ MzOmniPicker.with(this)
 ### Edit Images
 
 ```kotlin
-MzOmniPicker.with(this)
+MPicker.with(this)
     .type(MediaType.IMAGE)
     .maxCount(9)
     .imageEdit()
@@ -191,7 +191,7 @@ MzOmniPicker.with(this)
 ### Take Photo and Compress
 
 ```kotlin
-MzOmniPicker.with(this)
+MPicker.with(this)
     .takePhoto()
     .smartCompress()
     .start { result ->
@@ -201,7 +201,7 @@ MzOmniPicker.with(this)
 ### Record Video and Compress
 
 ```kotlin
-MzOmniPicker.with(this)
+MPicker.with(this)
     .takeVideo()
     .smartVideoCompress()
     .start { result ->
@@ -215,7 +215,7 @@ Some devices produce mirrored videos from the front camera. When the built-in ca
 The chain video API returns this flag to business code:
 
 ```kotlin
-MzOmniPicker.with(this)
+MPicker.with(this)
     .takeVideo()
     .start { result ->
         val video = result.firstOrNull()
@@ -229,7 +229,7 @@ MzOmniPicker.with(this)
 To let the framework fix mirroring before returning the final result, explicitly enable built-in video compression:
 
 ```kotlin
-MzOmniPicker.with(this)
+MPicker.with(this)
     .takeVideo()
     .smartVideoCompress()
     .start { result ->
@@ -239,14 +239,14 @@ MzOmniPicker.with(this)
 
 If you use a custom `IVideoCompressor`, check `item.mirrorHorizontal`. When it is `true`, the compressor should horizontally flip the video during rendering/transcoding and set `mirrorHorizontal` to `false` in the output result to avoid repeated flipping.
 
-The standalone recording API `MzOmniPicker.takeVideo(activity, ...)` only returns raw `filePath/uri` and does not go through the `MediaEntity` result chain. It therefore does not carry `mirrorHorizontal` and does not automatically fix front-camera mirroring. Use `MzOmniPicker.with(this).takeVideo().start { ... }` if you need the mirror flag.
+The standalone recording API `MPicker.takeVideo(activity, ...)` only returns raw `filePath/uri` and does not go through the `MediaEntity` result chain. It therefore does not carry `mirrorHorizontal` and does not automatically fix front-camera mirroring. Use `MPicker.with(this).takeVideo().start { ... }` if you need the mirror flag.
 
 ### Timed Video Recording
 
 ```kotlin
-import io.github.mz.mzomnipicker.api.CameraRecordTrigger
+import io.github.mz.mpicker.api.CameraRecordTrigger
 
-MzOmniPicker.takeVideo(
+MPicker.takeVideo(
     activity = this,
     maxDurationMs = 10_000L,
     countDown = true,
@@ -259,7 +259,7 @@ MzOmniPicker.takeVideo(
 The chain API also supports recording duration:
 
 ```kotlin
-MzOmniPicker.with(this)
+MPicker.with(this)
     .takeVideo()
     .recordDurationMs(10_000L, countDown = true)
     .clickRecord()
@@ -270,7 +270,7 @@ MzOmniPicker.with(this)
 ### System Photo Picker
 
 ```kotlin
-MzOmniPicker.with(this)
+MPicker.with(this)
     .type(MediaType.IMAGE)
     .maxCount(5)
     .useSystemPhotoPicker(true)
@@ -281,7 +281,7 @@ MzOmniPicker.with(this)
 ### System File Picker
 
 ```kotlin
-MzOmniPicker.pickFiles(
+MPicker.pickFiles(
     activity = this,
     mimeTypes = arrayOf(
         "application/pdf",
@@ -300,9 +300,9 @@ MzOmniPicker.pickFiles(
 
 | API | Description |
 | --- | --- |
-| `MzOmniPicker.with(activity)` | Create an Activity selector |
-| `MzOmniPicker.with(fragment)` | Create a Fragment selector |
-| `MzOmniPicker.with(...)` | Create a selector and start chain configuration |
+| `MPicker.with(activity)` | Create an Activity selector |
+| `MPicker.with(fragment)` | Create a Fragment selector |
+| `MPicker.with(...)` | Create a selector and start chain configuration |
 | `start(listener)` | Start the selection flow and return `List<MediaEntity>` |
 
 Canceling selection does not trigger the `start` callback.
@@ -366,12 +366,12 @@ Canceling selection does not trigger the `start` callback.
 
 | API | Description |
 | --- | --- |
-| `MzOmniPicker.takePhoto(activity, listener)` | Standalone photo capture without picker UI |
-| `MzOmniPicker.takePhoto(fragment, listener)` | Fragment version of standalone photo capture |
-| `MzOmniPicker.takeVideo(activity, listener)` | Standalone video recording without picker UI |
-| `MzOmniPicker.takeVideo(activity, maxDurationMs, countDown, trigger, listener)` | Standalone timed video recording |
-| `MzOmniPicker.takeVideo(fragment, listener)` | Fragment version of standalone video recording |
-| `MzOmniPicker.takeVideo(fragment, maxDurationMs, countDown, trigger, listener)` | Fragment version of standalone timed video recording |
+| `MPicker.takePhoto(activity, listener)` | Standalone photo capture without picker UI |
+| `MPicker.takePhoto(fragment, listener)` | Fragment version of standalone photo capture |
+| `MPicker.takeVideo(activity, listener)` | Standalone video recording without picker UI |
+| `MPicker.takeVideo(activity, maxDurationMs, countDown, trigger, listener)` | Standalone timed video recording |
+| `MPicker.takeVideo(fragment, listener)` | Fragment version of standalone video recording |
+| `MPicker.takeVideo(fragment, maxDurationMs, countDown, trigger, listener)` | Fragment version of standalone timed video recording |
 | `takePhoto()` | Chain photo capture, returned through `start` as `List<MediaEntity>` |
 | `takeVideo()` | Chain video recording, returned through `start` as `List<MediaEntity>` |
 | `recordDurationMs(durationMs, countDown)` | Set max chain recording duration; `countDown=true` shows remaining time |
@@ -415,10 +415,10 @@ Built-in image editing supports multiple images. Features include crop, brush, t
 | `imageCompressor(c)` | Use custom image compressor for this selection |
 | `videoCompressor(c)` | Use custom video compressor for this selection |
 | `cancelCompressOnBack(enable)` | Whether back/cancel interrupts background compression while loading is shown |
-| `MzOmniPicker.setSmartImageCompressor(...)` | Enable global built-in image compression |
-| `MzOmniPicker.setSmartVideoCompressor(...)` | Enable global built-in video compression |
-| `MzOmniPicker.setImageCompressor(c)` | Set global image compressor; pass `null` to disable |
-| `MzOmniPicker.setVideoCompressor(c)` | Set global video compressor; pass `null` to disable |
+| `MPicker.setSmartImageCompressor(...)` | Enable global built-in image compression |
+| `MPicker.setSmartVideoCompressor(...)` | Enable global built-in video compression |
+| `MPicker.setImageCompressor(c)` | Set global image compressor; pass `null` to disable |
+| `MPicker.setVideoCompressor(c)` | Set global video compressor; pass `null` to disable |
 
 `smartCompress` parameters:
 
@@ -450,8 +450,8 @@ Custom compressors must implement `IImageCompressor` or `IVideoCompressor`. A co
 | --- | --- |
 | `useSystemPhotoPicker(enable)` | Prefer Android Photo Picker on API 33+, zero permission |
 | `useSystemFilePicker(enable)` | Use SAF document picker |
-| `MzOmniPicker.pickFiles(activity, mimeTypes, allowMultiple, listener)` | Standalone SAF file picker |
-| `MzOmniPicker.pickFiles(fragment, mimeTypes, allowMultiple, listener)` | Fragment version of SAF file picker |
+| `MPicker.pickFiles(activity, mimeTypes, allowMultiple, listener)` | Standalone SAF file picker |
+| `MPicker.pickFiles(fragment, mimeTypes, allowMultiple, listener)` | Fragment version of SAF file picker |
 
 Crop, image editing, and other image-processing features automatically fall back to the framework picker flow. Audio does not use Android Photo Picker. The system file picker is suitable for PDF, ZIP, Word, Excel, and other non-media files. Results are still returned as `List<MediaEntity>`. Some cloud files may not have `filePath`; prefer `uri` in business code.
 
@@ -459,7 +459,7 @@ Crop, image editing, and other image-processing features automatically fall back
 
 | API | Description |
 | --- | --- |
-| `MzOmniPicker.setImageEngine(engine)` | Set global image loading engine; pass `null` to restore built-in default |
+| `MPicker.setImageEngine(engine)` | Set global image loading engine; pass `null` to restore built-in default |
 | `imageEngine(engine)` | Override image loading engine for one selection |
 | `IImageEngine.loadThumbnail(view, item)` | Load list thumbnail, recommended |
 | `IImageEngine.loadOriginal(view, item)` | Load preview image, recommended |
@@ -472,7 +472,7 @@ To integrate Glide, Coil, Picasso, or another loader, implement `IImageEngine`. 
 
 | API | Description |
 | --- | --- |
-| `MzOmniPicker.setOtherPreviewProvider(provider)` | Register global preview extension for other file types |
+| `MPicker.setOtherPreviewProvider(provider)` | Register global preview extension for other file types |
 | `IOtherPreviewProvider.createView(parent)` | Called in `onCreateViewHolder`; only create the View |
 | `IOtherPreviewProvider.bindView(view, item)` | Called whenever a file item is bound |
 | `IOtherPreviewProvider.onViewAttachedToWindow(view)` | Called when the View enters the window; useful for resuming rendering/listening/playback |
@@ -486,7 +486,7 @@ This is for custom preview of PDF, DOC/DOCX, XLS/XLSX, PPT/PPTX, TXT, ZIP, and o
 When using `MediaType.ALL`, the framework queries and returns all matching file types, not only media files. The result list may include images, videos, audio, PDF, PPT, Word, Excel, TXT, ZIP, and other files. For these "other files", the framework provides two extension layers:
 
 - List cover extension: use `IImageEngine.loadThumbnail(view, item)` to set different document covers by `mimeType` or extension.
-- Preview/open extension: use `MzOmniPicker.setOtherPreviewProvider(provider)` to register document preview support. The framework creates and binds document preview views automatically in the preview page.
+- Preview/open extension: use `MPicker.setOtherPreviewProvider(provider)` to register document preview support. The framework creates and binds document preview views automatically in the preview page.
 
 ### Third-Party Image Crop/Edit
 
@@ -508,9 +508,9 @@ After third-party processing finishes, the result still returns from `start`. Th
 
 | API | Description |
 | --- | --- |
-| `MzOmniPicker.preload(context, vararg types)` | Preload media list in background |
-| `MzOmniPicker.cached(type)` | Get preloaded or last queried first-page cache |
-| `MzOmniPicker.invalidateCache()` | Clear media list cache and file scan cache |
+| `MPicker.preload(context, vararg types)` | Preload media list in background |
+| `MPicker.cached(type)` | Get preloaded or last queried first-page cache |
+| `MPicker.invalidateCache()` | Clear media list cache and file scan cache |
 
 After taking photos, saving new files, or external media changes, call `invalidateCache()` to force the next query to reload.
 

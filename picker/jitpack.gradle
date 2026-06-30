@@ -9,23 +9,24 @@
  *   apply(from = "jitpack.gradle")
  *
  * 本地验证：
- *   ./gradlew :mzomnipicker:publishToMavenLocal
+ *   ./gradlew :mpicker:publishToMavenLocal
  *
  * JitPack 服务器命令（在根目录 jitpack.yml 里配）：
- *   ./gradlew :mzomnipicker:publishToMavenLocal -PVERSION_NAME=$VERSION
+ *   ./gradlew :mpicker:publishToMavenLocal -PVERSION_NAME=$VERSION
  *
  * 使用方坐标（多模块仓库注意点号）：
- *   io.github.mzicode:mzomnipicker:<TAG>
+ *   io.github.mzicode:mpicker:<TAG>
  */
 
 apply plugin: 'maven-publish'
 
 ext {
     publishGroupId    = 'io.github.mzicode'
-    publishArtifactId = 'mzomnipicker'
+    publishArtifactId = 'mpicker'
     publishVersion    = project.findProperty('VERSION_NAME') ?: '0.1.0-LOCAL'
 
-    publishUrl        = 'https://github.com/mzicode/MzOmniPicker'
+    publishName       = 'MPicker'
+    publishUrl        = 'https://github.com/mzicode/MPicker'
     publishDeveloperId   = 'mz'
     publishDeveloperName = 'mz'
 }
@@ -49,8 +50,8 @@ afterEvaluate {
                 version    = publishVersion
 
                 pom {
-                    name        = publishArtifactId
-                    description = 'MzOmniPicker：Android 媒体选择器，支持系统 Photo Picker、相机、裁切、编辑、压缩和预览扩展'
+                    name        = publishName
+                    description = 'MPicker：Android 媒体选择器，支持系统 Photo Picker、相机、裁切、编辑、压缩和预览扩展'
                     url         = publishUrl
 
                     licenses {

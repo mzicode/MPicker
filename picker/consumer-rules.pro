@@ -13,29 +13,29 @@
 #   3. 反射 / 字符串引用（如 ZoomGestureHelper 被外部按 public API 调用）
 
 # ─── 公开扩展接口：业务方会实现，不能改方法签名 ─────────────────────────
--keep interface io.github.mz.mzomnipicker.loader.IImageEngine { *; }
--keep interface io.github.mz.mzomnipicker.preview.IOtherPreviewProvider { *; }
--keep interface io.github.mz.mzomnipicker.compress.IImageCompressor { *; }
--keep interface io.github.mz.mzomnipicker.compress.IVideoCompressor { *; }
+-keep interface io.github.mz.mpicker.loader.IImageEngine { *; }
+-keep interface io.github.mz.mpicker.preview.IOtherPreviewProvider { *; }
+-keep interface io.github.mz.mpicker.compress.IImageCompressor { *; }
+-keep interface io.github.mz.mpicker.compress.IVideoCompressor { *; }
 
 # ─── 公开链式入口：业务方调链式 API + Java 调用 @JvmStatic 工厂 ─────────
--keep class io.github.mz.mzomnipicker.api.MediaSelector { public *; }
--keep class io.github.mz.mzomnipicker.api.MediaSelector$Companion { public *; }
--keep class io.github.mz.mzomnipicker.api.MzOmniPicker { public *; }
+-keep class io.github.mz.mpicker.api.MediaSelector { public *; }
+-keep class io.github.mz.mpicker.api.MediaSelector$Companion { public *; }
+-keep class io.github.mz.mpicker.api.MPicker { public *; }
 
 # ─── SAM fun interface：Java/Kotlin 互调时方法名要稳定 ──────────────────
--keep interface io.github.mz.mzomnipicker.api.OnPickResultListener { *; }
--keep interface io.github.mz.mzomnipicker.api.OnPhotoTakenListener { *; }
--keep class io.github.mz.mzomnipicker.upload.MediaUploader$Cancellable { *; }
--keep class io.github.mz.mzomnipicker.upload.MediaUploader { public *; }
+-keep interface io.github.mz.mpicker.api.OnPickResultListener { *; }
+-keep interface io.github.mz.mpicker.api.OnPhotoTakenListener { *; }
+-keep class io.github.mz.mpicker.upload.MediaUploader$Cancellable { *; }
+-keep class io.github.mz.mpicker.upload.MediaUploader { public *; }
 
 # ─── ZoomGestureHelper 被外部按 attach() 入口直接调用 ───────────────────
--keep public class io.github.mz.mzomnipicker.util.ZoomGestureHelper { public protected *; }
--keep class io.github.mz.mzomnipicker.util.ZoomGestureHelper$Config { *; }
+-keep public class io.github.mz.mpicker.util.ZoomGestureHelper { public protected *; }
+-keep class io.github.mz.mpicker.util.ZoomGestureHelper$Config { *; }
 
 # ─── MediaEntity 走 Parcel 跨 Activity / 进程，字段反射读写 ──────────
 # AGP 默认会保留 CREATOR，但保险起见明确字段保留以防外部 ContentProvider 反射
--keepclassmembers class io.github.mz.mzomnipicker.model.MediaEntity {
+-keepclassmembers class io.github.mz.mpicker.model.MediaEntity {
     public <fields>;
     public *** get*();
     public *** is*();

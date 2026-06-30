@@ -64,7 +64,7 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <io.github.mz.mzomnipicker.crop.CropImageView
+        <io.github.mz.mpicker.crop.CropImageView
             android:id="@+id/crop_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

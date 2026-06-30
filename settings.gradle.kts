@@ -22,7 +22,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MzOmniPicker"
+rootProject.name = "MPicker"
 include(":app")
-include(":mzomnipicker")
-project(":mzomnipicker").projectDir = file("picker")
+include(":mpicker")
+project(":mpicker").projectDir = file("picker")
